@@ -1,6 +1,6 @@
 # bluebirdlike_flutterapp
 
-A new Flutter project.
+basic twitter like app but friendship app
 
 ## Getting Started
 
