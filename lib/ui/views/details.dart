@@ -48,7 +48,7 @@ class _DetailsPageState extends State<DetailsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text("${widget.blueBird.description}",
-                style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),              ),
+                style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03),),
             ],
           ),
         ),

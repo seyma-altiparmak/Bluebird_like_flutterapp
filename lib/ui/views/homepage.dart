@@ -1,6 +1,8 @@
 import 'package:bluebirdlike_flutterapp/data/entity/bluebird.dart';
+import 'package:bluebirdlike_flutterapp/ui/cubit/homepage_cubit.dart';
 import 'package:bluebirdlike_flutterapp/ui/views/details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,16 +13,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  Future<List<BlueBird>> LoadbluebirdList() async{
-    var blueBirdlist = <BlueBird>[];
-
-    var t1 = BlueBird(id: 1, picture: "picture2.png", username: "symaltiparmak", description: "I would like to share my happiness ");
-    var t2 = BlueBird(id: 2, picture: "picture1.png", username: "maaminiz", description: "🚀 Teknolojinin 1980'den 2024'e evrimi muazzam!");
-
-    blueBirdlist.add(t1);
-    blueBirdlist.add(t2);
-
-    return blueBirdlist;
+  @override
+  void initState(){
+    super.initState();
+    context.read<HpCubit>().LoadbluebirdList();
   }
 
   @override
@@ -34,15 +30,13 @@ class _HomePageState extends State<HomePage> {
       ],), backgroundColor: Colors.white,),
       body: Container(
         decoration: BoxDecoration(color: Colors.blue),
-        child: FutureBuilder<List<BlueBird>>(
-          future: LoadbluebirdList(),
+        child: BlocBuilder<HpCubit,List<BlueBird>>(
           builder: (context, snapshot){
-            if(snapshot.hasData){
-              var t = snapshot.data;
+            if(snapshot.isNotEmpty){
               return ListView.builder(
-                  itemCount: t!.length,
+                  itemCount: snapshot.length,
                   itemBuilder: (context,i){
-                    var mt = t[i];
+                    var mt = snapshot[i];
                     return GestureDetector(
                       onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsPage(blueBird: mt,)));
                         },
